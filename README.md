@@ -1,66 +1,122 @@
-﻿# Blish HUD
-[![Build status](https://ci.appveyor.com/api/projects/status/43fg2d3hy4jt5ip1?svg=true)](https://ci.appveyor.com/project/dlamkins/blish-hud/branch/dev/artifacts)
-[![Discord](https://img.shields.io/discord/531175899588984842.svg?logo=discord&logoColor=%237289DA)](https://discord.gg/FYKN3qh)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?branch=dev&project=blish-hud_Blish-HUD&metric=alert_status)](https://sonarcloud.io/dashboard?id=blish-hud_Blish-HUD&branch=dev)
+# <a align="center"><img src="GMode.svg"/></a>
 
-**Visit our site:** https://blishhud.com
+<table>
+    <tr>
+        <td>Author:</td>
+        <td>Philipp Reuter</td>
+    </tr>
+    <tr>
+        <td>Version:</td>
+        <td>1.0.0</td>
+    </tr>
+    <tr>
+        <td>Generated:</td>
+        <td>Nov 18, 2022</td>
+    </tr>
+    <tr>
+        <td>Last Update:</td>
+        <td>Nov 24, 2022</td>
+    </tr>
+    <tr>
+        <td>Idea based on:</td>
+        <td><a href="https://www.youtube.com/watch?v=_uyORohSWvU">YouTube</a></td>
+    </tr>
+    <tr>
+        <td>Tested OS:</td>
+        <td>Windows 11</td>
+    </tr>
+    <tr>
+        <td>G Mode:</td>
+        <td><a href="https://www.dell.com/support/kbdoc/de-de/000132265/introduction-to-the-new-features-of-the-x500-g-series-of-gaming-notebooks?lang=en#Game_Shift">DELL Game Shift</a></td>
+    </tr>
+</table>
 
-## Check our Setup Guide
+## Prerequisites
 
-[![Blish HUD Setup Video](https://img.youtube.com/vi/iLYYumF2SCY/0.jpg)](https://www.youtube.com/watch?v=iLYYumF2SCY)
+- Alienware Command Center (AWCC)
+- Administrator rights
 
-## Download Blish HUD
+## Introduction
 
-You can download Blish HUD:
-- Using the [direct download (v0.11.7)](https://github.com/blish-hud/Blish-HUD/releases/download/v0.11.7/Blish.HUD.0.11.7.zip) link.
-- From our [Releases](https://github.com/blish-hud/Blish-HUD/releases) page here on GitHub.
+I had found the GMode.exe from the video and liked the program, but I don't like to use EXE files from untrusted sources, so I wrote a Powershell script that can be run with the run.vbs (Visual Basic Script) with one click.
 
-### Need Help?
+With both Powershell and Visual Basic Script you can easily read the source code with a text editor, but I still explain each line of code here.
 
-Visit our [#💢help](https://discord.gg/qJdUhdG) channel in Discord.
+## Installation [(Video)](https://www.youtube.com/watch?v=SmMtJ7l6naM)
 
-## Links of Interest
+1. Download ZIP from the green Code Button in the top right.
+2. Extract the ZIP to any location.
 
-### Blish HUD Resources
+## Usage
 
-- [BlishHUD.com](https://blishhud.com/) - Our website.
-- [Blish HUD FAQ](https://blishhud.com/docs/user/faq) - Frequently asked questions.
-- [Troubleshooting Guide](https://blishhud.com/docs/user/troubleshooting/) - Our troubleshooting guide.
-- [Arcdps Blish HUD Integration](https://github.com/blish-hud/arcdps-bhud) - a plugin that uses the Arcdps Combat API and exposes some of the data to Blish HUD for compatible modules.
+You have two Options, run.vbs to just simulate the key presses and run_manager.vbs to also automaticly manage AWCC, if its not running or crashed.
 
-### Marker Pack Support
-- [Pathing Module Setup Guide](https://blishhud.com/docs/markers/) - Video and written guide for using the pathing module for TacO marker packs.
-- [Marker Pack Development](https://blishhud.com/docs/markers/development/attributes) - Details on the marker pack format along with attribute support.
+1. Run the "run.vbs" File.
+   > **Presses the Keys to Toggles the G Mode.**
+2. Run the "run_manager.vbs" File.
+   > &nbsp;&nbsp;&nbsp;&nbsp;**&#x27A5;** ***Checks if AWCC is running.***</br >
+   > &nbsp;&nbsp;&nbsp;&nbsp;**&#x27A5;** ***Checks if AWCC is installed, if not open a Massage Box to go to the installation webpage.***</br >
+   > &nbsp;&nbsp;&nbsp;&nbsp;**&#x27A5;** ***If AWCC is installed, starts it if its not running.***</br >
+   > &nbsp;&nbsp;&nbsp;&nbsp;**&#x27A5;** ***If AWCC is running, but the process is inactive, terminates the process to trigger a restart of it.***</br >
+   > &nbsp;&nbsp;&nbsp;&nbsp;**&#x27A5;** ***When AWCC is started or restarted, the script waits for special DLLs to be loaded by AWCC.***</br >
+   > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ***Before that the key combination is not processed by AWCC and nothing happens!***
 
-## For Developers
+   > **Presses the Keys to Toggles the G Mode.**
 
-Pull requests are welcome. You are encouraged to join the discussion in the [Blish HUD #🔨core_discussion Discord channel](https://discord.gg/nGbd3kU).
+## Code
 
-### Build Requirements
+<details><summary><b>run.vbs & run_manager.vbs</b> (Visual Basic Script)</summary>
+<p>
 
-#### Prerequisites
+```vb
+current_directory = CreateObject("Scripting.FileSystemObject").GetAbsolutePathName(".")
+```
 
-- [Visual Studio 2019](https://visualstudio.microsoft.com/vs/)
-- [MonoGame development tools](https://docs.monogame.net/articles/getting_started/1_setting_up_your_development_environment_windows.html)
-- [.NET 4.7.1 Developer Pack](https://www.microsoft.com/en-us/download/details.aspx?id=56119)
-- [Visual C++ Redistributable 2012](https://www.microsoft.com/en-us/download/details.aspx?id=30679)
+&nbsp;&nbsp;&nbsp;&nbsp;**&#x27A5;** **_Get the current directory._**
 
-#### Instructions
+```vb
+ps1_script_path = current_directory & "\g_mode.ps1"
+```
 
-1.  Clone the repo: `git clone https://github.com/blish-hud/Blish-HUD.git`
-2.  Launch the project solution in Visual Studio 2019.
-3.  Restore NuGet dependencies: `nuget restore`
+&nbsp;&nbsp;&nbsp;&nbsp;**&#x27A5;** **_Concatenate current directory with file name to get the path to the script._**
 
-### Module Development
+```vb
+cmd = "powershell.exe " & ps1_script_path
+```
 
-- [Visual Studio 2019 Module Template](https://github.com/blish-hud/Module-Template)
-- [Module Documentation](https://blishhud.com/docs/dev/)
-- [Example Module](https://github.com/blish-hud/Example-Blish-HUD-Module/blob/master/README.md)
+&nbsp;&nbsp;&nbsp;&nbsp;**&#x27A5;** **_Define the command to run the script._**
 
-### Thanks
+```vb
+CreateObject("Wscript.Shell").Run cmd, 0, True
+```
 
-Thank you [JetBrains](https://www.jetbrains.com/?from=Blish%20HUD) for providing free open source licenses to our primary contributers.
+&nbsp;&nbsp;&nbsp;&nbsp;**&#x27A5;** **_Run the Script and hide the console._**
 
-### License
+</p>
+</details>
 
-Licensed under the [MIT License](https://choosealicense.com/licenses/mit/)
+---
+
+<details><summary><b>g_mode.ps1</b> (Powershell)</summary>
+<p>
+
+```powershell
+Add-Type -MemberDefinition '[DllImport("user32.dll")] public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags,UIntPtr dwExtraInfo);' -name t -namespace w32
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;**&#x27A5;** **_Import the "user32.dll" so we can use the keybd_event function._**
+
+```powershell
+[w32.t]::keybd_event(0x80,0,0,[UIntPtr]::Zero)
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;**&#x27A5;** **_Use the keybd_event function to press Key Code 0x80 (128)._**
+
+```powershell
+[w32.t]::keybd_event(0x80,0,0x2,[UIntPtr]::Zero)
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;**&#x27A5;** **_Use the keybd_event function to release Key Code 0x80 (128)._**
+
+</p>
+</details>
